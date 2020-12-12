@@ -9,6 +9,7 @@ import {
   Method,
   Host,
 } from "@stencil/core";
+import "split-me";
 import firebase from "firebase/app";
 import "firebase/storage";
 import EditorJS from "@editorjs/editorjs";
