@@ -6,7 +6,7 @@ import {
 } from "../../../.storybook/helpers/custom-action";
 
 const costumEvents = ["clicked", "enjinChange"];
-const events = ["mouseover", "click", ...eventHandles(costumEvents)];
+const events = ["click", ...eventHandles(costumEvents)];
 
 const args = {
   placeholder: "Let's write something...",
