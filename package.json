@@ -51,7 +51,6 @@
     "@ionic/core": "^5.5.2",
     "@stencil/core": "^2.3.0",
     "@storybook/web-components": "^6.1.11",
-    "editorjs-inline-font-size-tool": "^1.0.1",
     "editorjs-paragraph-with-alignment": "^1.1.0",
     "editorjs-parser": "^1.4.3",
     "editorjs-style": "^2.2.0",
