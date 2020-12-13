@@ -1,12 +1,5 @@
 import { html } from "lit-html";
 import markdown from "./readme.md";
-import {
-  eventHandles,
-  action,
-} from "../../../.storybook/helpers/custom-action";
-
-const costumEvents = ["clicked", "enjinChange"];
-const events = ["click", ...eventHandles(costumEvents)];
 
 const args = {
   placeholder: "Let's write something...",
@@ -29,9 +22,6 @@ export default {
   component: "enjin-editor",
   parameters: {
     notes: { markdown },
-    actions: {
-      handles: events,
-    },
   },
 };
 
@@ -40,7 +30,6 @@ const Template = ({ placeholder, userId }) => html`
     placeholder="${placeholder}"
     user-id="${userId}"
   </enjin-editor>
-  ${action("enjin-editor", costumEvents)}
 `;
 
 export const Default = Template.bind({});

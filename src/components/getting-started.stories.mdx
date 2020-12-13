@@ -1,26 +1,30 @@
-import { Meta, Source } from '@storybook/addon-docs/blocks';
-import namespace from '../../.storybook/helpers/mdx-packageJson';
-import dedent from 'ts-dedent';
-import markdown from '../../README.md';
+import { Meta, Source } from "@storybook/addon-docs/blocks";
+import namespace from "../../.storybook/helpers/mdx-packageJson";
+import dedent from "ts-dedent";
+import markdown from "../../README.md";
 
 <Meta title="Getting Started" />
 
 # Enjin Editor
 
 ## Github
+
 - Repo: https://github.com/madnesslabs/enjin-editor
 - Issues: https://github.com/madnesslabs/enjin-editor/issues
 
 ## MDX links
+
 - [MDX](https://mdxjs.com/getting-started)
 - [Storybook MDX](https://storybook.js.org/docs/react/api/mdx)
 
 ## Change your package name
+
 in your `package.json`
 
 ## Add this snippet code to your page
+
 <Source
-  language='html'
+  language="html"
   code={dedent`
      <script type="module" src="${namespace}.esm.js"></script>
      <link rel="stylesheet" href="${namespace}.css" />
@@ -29,10 +33,10 @@ in your `package.json`
 />
 
 ## [Readme](https://github.com/madnesslabs/enjin-editor/blob/main/README.md)
-<Source
-  language='markdown'
-  code={markdown}
-/>
+
+<Source language="markdown" code={markdown} />
+
+<enjin-editor></enjin-editor>
 
 Cheers
 Dutscher
