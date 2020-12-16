@@ -38,6 +38,7 @@ export class EnjinEditor implements ComponentInterface {
 
   @Prop() placeholder = "Let's Write Something!";
   @Prop() userId: string;
+  @Prop() tools: any = {};
 
   @Event() enjinChange: EventEmitter;
 
@@ -64,7 +65,7 @@ export class EnjinEditor implements ComponentInterface {
       },
       placeholder: this.placeholder,
       holder: this.editorEl,
-      tools: {
+      tools: {...{
         paragraph: {
           class: Paragraph,
           inlineToolbar: true,
@@ -153,7 +154,7 @@ export class EnjinEditor implements ComponentInterface {
         embed: {
           class: Embed,
         },
-      },
+      }, ...this.tools},
     });
   }
 
