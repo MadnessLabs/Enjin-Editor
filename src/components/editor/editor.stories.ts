@@ -28,7 +28,7 @@ export default {
 const Template = ({ placeholder, userId }) => html`
   <enjin-editor
     placeholder="${placeholder}"
-    user-id="${userId}"
+    user-id="${userId}">
   </enjin-editor>
 `;
 

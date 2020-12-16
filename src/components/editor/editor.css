@@ -1,3 +1,84 @@
+enjin-editor {
+  display: block;
+  color: var(--ion-text-color);
+}
+
 enjin-editor editorjs-style {
   display: block;
+}
+
+enjin-editor .ce-toolbox__button--active,
+enjin-editor .ce-toolbox__button:hover,
+enjin-editor .ce-toolbar__plus--active, 
+enjin-editor .ce-toolbar__plus:hover,
+enjin-editor .cdx-settings-button--active,
+enjin-editor .cdx-settings-button:hover {
+  color: var(--ion-color-primary);
+}
+
+enjin-editor .ce-settings__button--confirm {
+  background-color: var(--ion-color-danger) !important;
+  color: var(--ion-color-danger-contrast);
+}
+
+enjin-editor .ce-block--selected .ce-block__content {
+  background: var(--ion-color-base-tint);
+}
+
+enjin-editor .ce-toolbox {
+  background-color: var(--ion-background-color);
+}
+enjin-editor .ce-toolbar__settings-btn {
+  background-color: var(--ion-color-base-shade);
+}
+enjin-editor .ce-inline-toolbar,
+enjin-editor .ce-conversion-toolbar,
+enjin-editor .ce-settings {
+  color: var(--ion-text-color);
+  background-color: var(--ion-color-base-shade);
+  border-color: var(--ion-color-base-tint);
+}
+enjin-editor .ce-inline-toolbar__dropdown {
+  border-right-color: var(--ion-color-base-tint);
+}
+enjin-editor .ce-inline-toolbar__dropdown:hover,
+enjin-editor .ce-inline-tool:hover,
+enjin-editor .ce-settings__button:hover,
+enjin-editor .cdx-settings-button:hover {
+  background-color: var(--ion-color-base-tint);
+}
+enjin-editor .ce-inline-tool svg,
+enjin-editor .ce-settings svg,
+enjin-editor .cdx-settings-button svg {
+  fill: var(--ion-text-color);
+}
+enjin-editor .ce-inline-tool--active svg,
+enjin-editor .cdx-settings-button--active svg {
+  fill: var(--ion-color-primary);
+}
+enjin-editor .ce-conversion-tool__icon {
+  border-color: var(--ion-color-base-tint);
+  background: var(--ion-color-base);
+}
+enjin-editor .ce-conversion-tool--focused {
+  background: rgba(var(--ion-color-primary-rgb), 0.2) !important;
+}
+enjin-editor .ce-conversion-tool:hover {
+  background-color: var(--ion-color-primary);
+  color: var(--ion-text-color);
+}
+enjin-editor .ce-conversion-tool:hover svg {
+  color: var(--ion-text-color);
+}
+enjin-editor .ce-inline-toolbar__actions input {
+  background: transparent;
+}
+enjin-editor textarea.cdx-input {
+  background-color: transparent;
+}
+
+@media (min-width: 651px) {
+  enjin-editor .codex-editor--narrow .ce-toolbar__plus {
+      left: -60px;
+  }
 }
