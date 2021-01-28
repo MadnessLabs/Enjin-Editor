@@ -17,7 +17,7 @@
     "npm:install": "npm install",
     "start": "concurrently -n storybook,stencil,proxy -c \"bgMagenta.bold,bgBlue.bold,bgCyan.bold\" \"npm:watch:storybook\" \"npm:watch:stencil\" \"npm:watch:proxy\"",
     "watch:storybook": "start-storybook -p 3001 --ci --quiet",
-    "watch:stencil": "stencil build --dev --watch --serve --port 3002",
+    "watch:stencil": "stencil build --docs --dev --watch --serve --port 3002",
     "watch:proxy": "wait-on http://localhost:3001/ && wait-on http://localhost:3002/ && node ./scripts/proxy.js",
     "new:component": "stencil generate",
     "build": "run-s build:stencil build:storybook",

@@ -36,17 +36,35 @@ export class EnjinEditor implements ComponentInterface {
 
   @Element() editorEl: HTMLEnjinEditorElement;
 
+  /**
+   * The placholder text to show when the editor is empty
+   */
   @Prop() placeholder = "Let's Write Something!";
+  /**
+   * The userId of the author
+   */
   @Prop() userId: string;
+  /**
+   * Custom tools you want to pass to Editor.js
+   */
   @Prop() tools: any = {};
 
+  /**
+   * An event emitted on each change in the editor
+   */
   @Event() enjinChange: EventEmitter;
 
+  /**
+   * Get the Editor.js instance
+   */
   @Method()
   async getInstance(): Promise<any> {
     return this.editorJS;
   }
 
+  /**
+   * Export the editor as a string of HTML
+   */
   @Method()
   async exportHTML(): Promise<string> {
     return new edjsParser(null, {
