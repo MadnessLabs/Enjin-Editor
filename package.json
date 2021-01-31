@@ -14,7 +14,9 @@
   "types": "dist/index.d.ts",
   "collection": "dist/collection/collection-manifest.json",
   "scripts": {
+    "dev": " stencil build --docs --dev --watch --serve",
     "npm:install": "npm install",
+    "serve": "npm-run-all --parallel dev presets:watch",
     "start": "concurrently -n storybook,stencil,proxy -c \"bgMagenta.bold,bgBlue.bold,bgCyan.bold\" \"npm:watch:storybook\" \"npm:watch:stencil\" \"npm:watch:proxy\"",
     "watch:storybook": "start-storybook -p 3001 --ci --quiet",
     "watch:stencil": "stencil build --docs --dev --watch --serve --port 3002",
@@ -26,6 +28,8 @@
     "test": "stencil test --spec --e2e --coverage",
     "lint": "run-p lint:js",
     "lint:js": "eslint src/**/*{.ts,.tsx}",
+    "presets:build": "fireenjin presets",
+    "presets:watch": "fireenjin presets watch",
     "chromatic": "run-s build:stencil chromatic:publish",
     "chromatic:publish": "npx chromatic --project-token KEY_HERE --build-script-name build:storybook"
   },
@@ -61,6 +65,7 @@
   },
   "devDependencies": {
     "@babel/core": "^7.12.10",
+    "@madnesslabs/fireenjin-designer": "^1.1.31",
     "@stencil/eslint-plugin": "^0.3.1",
     "@storybook/addon-actions": "^6.1.15",
     "@storybook/addon-essentials": "^6.1.15",

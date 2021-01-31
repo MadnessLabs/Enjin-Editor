@@ -41,5 +41,9 @@ export const config: Config = {
       type: "docs-json",
       file: `${distDirs.stencil}/components.json`,
     },
+    {
+      type: "docs-json",
+      file: `www/core.json`,
+    },
   ],
 };
