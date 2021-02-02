@@ -31,7 +31,7 @@ export default class Button {
       },
     },
     {
-      name: "link",
+      name: "href",
       innerHTML: `<svg class="icon" width="14px" height="10px"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#link"></use></svg>`,
       value: "#",
       onClick: () => {
