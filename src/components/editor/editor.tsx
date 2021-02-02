@@ -45,6 +45,10 @@ export class EnjinEditor implements ComponentInterface {
    */
   @Prop() userId: string;
   /**
+   * The folder to put images uploaded via the editor in
+   */
+  @Prop() fileStoragePath: string;
+  /**
    * Custom tools you want to pass to Editor.js
    */
   @Prop() tools: any = {};
@@ -104,7 +108,15 @@ export class EnjinEditor implements ComponentInterface {
                   return new Promise((resolve, reject) => {
                     const uploadTask = firebase
                       .storage()
-                      .ref(`/users/${this.userId}/${file.name}`)
+                      .ref(
+                        `${
+                          this.fileStoragePath
+                            ? this.fileStoragePath
+                            : this.userId
+                            ? `/users/${this.userId}`
+                            : "/enjin-editor"
+                        }/${file.name}`
+                      )
                       .put(file, {});
                     uploadTask.on(
                       "state_changed",
