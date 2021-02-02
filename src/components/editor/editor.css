@@ -9,7 +9,7 @@ enjin-editor editorjs-style {
 
 enjin-editor .ce-toolbox__button--active,
 enjin-editor .ce-toolbox__button:hover,
-enjin-editor .ce-toolbar__plus--active, 
+enjin-editor .ce-toolbar__plus--active,
 enjin-editor .ce-toolbar__plus:hover,
 enjin-editor .cdx-settings-button--active,
 enjin-editor .cdx-settings-button:hover {
@@ -47,6 +47,11 @@ enjin-editor .ce-settings__button:hover,
 enjin-editor .cdx-settings-button:hover {
   background-color: var(--ion-color-base-tint);
 }
+enjin-editor .ce-inline-tool,
+enjin-editor .ce-settings,
+enjin-editor .cdx-settings-button {
+  color: var(--ion-text-color);
+}
 enjin-editor .ce-inline-tool svg,
 enjin-editor .ce-settings svg,
 enjin-editor .cdx-settings-button svg {
@@ -79,6 +84,6 @@ enjin-editor textarea.cdx-input {
 
 @media (min-width: 651px) {
   enjin-editor .codex-editor--narrow .ce-toolbar__plus {
-      left: -60px;
+    left: -60px;
   }
 }
