@@ -59,6 +59,10 @@ export class EnjinEditor implements ComponentInterface {
    *  Is the editor in read only mode
    */
   @Prop() readOnly = false;
+  /**
+   *  Should the editor focus on load
+   */
+  @Prop() autofocus = true;
 
   /**
    * An event emitted on each change in the editor
@@ -105,7 +109,7 @@ export class EnjinEditor implements ComponentInterface {
       placeholder: this.placeholder,
       holder: this.editorEl,
       readOnly: this.readOnly,
-
+      autofocus: this.autofocus,
       tools: {
         ...{
           paragraph: {
