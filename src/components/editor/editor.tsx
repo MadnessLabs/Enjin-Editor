@@ -55,6 +55,10 @@ export class EnjinEditor implements ComponentInterface {
    *  A list of template partials to use or a function to run to get template partials
    */
   @Prop() partials: any;
+  /**
+   *  Is the editor in read only mode
+   */
+  @Prop() readOnly = false;
 
   /**
    * An event emitted on each change in the editor
@@ -100,6 +104,8 @@ export class EnjinEditor implements ComponentInterface {
       },
       placeholder: this.placeholder,
       holder: this.editorEl,
+      readOnly: this.readOnly,
+
       tools: {
         ...{
           paragraph: {
