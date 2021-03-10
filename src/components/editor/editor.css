@@ -81,6 +81,9 @@ enjin-editor .ce-inline-toolbar__actions input {
 enjin-editor textarea.cdx-input {
   background-color: transparent;
 }
+enjin-editor .editor-partial {
+  min-height: 40px;
+}
 
 @media (min-width: 651px) {
   enjin-editor .codex-editor--narrow .ce-toolbar__plus {

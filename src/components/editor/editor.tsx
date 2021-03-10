@@ -9,7 +9,6 @@ import {
   Method,
   Host,
 } from "@stencil/core";
-import "split-me";
 import firebase from "firebase/app";
 import "firebase/storage";
 import EditorJS from "@editorjs/editorjs";
@@ -25,7 +24,7 @@ import { MDParser, MDImporter } from "editorjsMdParser";
 import Button from "./blocks/Button";
 import Page from "./blocks/Page";
 import Raw from "@editorjs/raw";
-import SplitPane from "./blocks/SplitPane";
+import Partial from "./blocks/Partial";
 
 @Component({
   tag: "enjin-editor",
@@ -52,6 +51,10 @@ export class EnjinEditor implements ComponentInterface {
    * Custom tools you want to pass to Editor.js
    */
   @Prop() tools: any = {};
+  /**
+   *  A list of template partials to use or a function to run to get template partials
+   */
+  @Prop() partials: any;
 
   /**
    * An event emitted on each change in the editor
@@ -185,11 +188,13 @@ export class EnjinEditor implements ComponentInterface {
             class: Table,
           },
           page: Page,
-          splitPane: {
-            class: SplitPane,
-            inlineToolbar: true,
-          },
           raw: Raw,
+          partial: {
+            class: Partial,
+            config: {
+              partials: this.partials ? this.partials : null,
+            },
+          },
           editorJSStyle: EditorJSStyle,
           markdownParser: MDParser,
           markdownImporter: MDImporter,

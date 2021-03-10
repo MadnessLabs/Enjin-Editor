@@ -7,12 +7,13 @@
 
 ## Properties
 
-| Property          | Attribute           | Description                                          | Type     | Default                    |
-| ----------------- | ------------------- | ---------------------------------------------------- | -------- | -------------------------- |
-| `fileStoragePath` | `file-storage-path` | The folder to put images uploaded via the editor in  | `string` | `undefined`                |
-| `placeholder`     | `placeholder`       | The placholder text to show when the editor is empty | `string` | `"Let's Write Something!"` |
-| `tools`           | `tools`             | Custom tools you want to pass to Editor.js           | `any`    | `{}`                       |
-| `userId`          | `user-id`           | The userId of the author                             | `string` | `undefined`                |
+| Property          | Attribute           | Description                                                                      | Type     | Default                    |
+| ----------------- | ------------------- | -------------------------------------------------------------------------------- | -------- | -------------------------- |
+| `fileStoragePath` | `file-storage-path` | The folder to put images uploaded via the editor in                              | `string` | `undefined`                |
+| `partials`        | `partials`          | A list of template partials to use or a function to run to get template partials | `any`    | `undefined`                |
+| `placeholder`     | `placeholder`       | The placholder text to show when the editor is empty                             | `string` | `"Let's Write Something!"` |
+| `tools`           | `tools`             | Custom tools you want to pass to Editor.js                                       | `any`    | `{}`                       |
+| `userId`          | `user-id`           | The userId of the author                                                         | `string` | `undefined`                |
 
 
 ## Events
