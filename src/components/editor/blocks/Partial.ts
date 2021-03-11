@@ -15,6 +15,7 @@ export default class Partial {
   loaded = false;
   partials = [];
   selectedPartial: any;
+  partialWrapperEl: any;
 
   static get toolbox() {
     return {
@@ -24,38 +25,27 @@ export default class Partial {
     };
   }
 
-  constructor(input) {
-    this.data = input.data;
-    this.api = input.api;
-    if (input.config?.partials && typeof input.config.partials === "object") {
-      this.partials = input.config.partials;
-    } else if (
-      input.config?.partials &&
-      typeof input.config.partials === "function"
-    ) {
-      this.partials = input.config.partials();
+  constructor({ api, data, config }) {
+    this.data = data;
+    this.api = api;
+    if (config?.partials && typeof config.partials === "object") {
+      this.partials = config.partials;
+    } else if (config?.partials && typeof config.partials === "function") {
+      this.partials = config.partials();
     } else if (localStorage.getItem("enjin-editor-partials")) {
       this.partials = JSON.parse(localStorage.getItem("enjin-editor-partials"));
     }
 
     this.createModal();
-    document.addEventListener("enjinModalClose", (event) => {
-      console.log(event);
+    document.addEventListener("enjinModalClose", () => {
       if (!this.modalEl) return;
       this.modalEl.dismiss();
     });
 
     document.addEventListener("enjinEditorClick", (event: any) => {
-      console.log(event);
-      try {
-        this.selectedPartial = event.detail.template;
-        const partialContainerEl = this.api.blocks
-          .getBlockByIndex(this.api.blocks.getCurrentBlockIndex())
-          .holder.querySelector(".editor-partial");
-        partialContainerEl.innerHTML = this.selectedPartial.html;
-      } catch (err) {
-        console.log(err, "Error selecting partial.");
-      }
+      if (!event?.detail?.template || !this.partialWrapperEl) return;
+      this.selectedPartial = event.detail.template;
+      this.partialWrapperEl.innerHTML = this.selectedPartial.html;
       if (!this.modalEl) return;
       this.modalEl.dismiss();
     });
@@ -126,17 +116,22 @@ export default class Partial {
   }
 
   render() {
-    if (!this.loaded) {
-      this.presentModal();
-      this.loaded = true;
+    if (this.data?.templateId && this.partials) {
+      for (const partial of this.partials) {
+        if (partial.id === this.data.templateId) this.selectedPartial = partial;
+      }
     }
-    const partialEl = document.createElement("div");
-    partialEl.classList.add("editor-partial");
-    partialEl.innerHTML = this.selectedPartial?.html
+    if (!this.loaded && !this.data?.templateId) {
+      this.presentModal();
+    }
+    this.loaded = true;
+    this.partialWrapperEl = document.createElement("div");
+    this.partialWrapperEl.classList.add("editor-partial");
+    this.partialWrapperEl.innerHTML = this.selectedPartial?.html
       ? this.selectedPartial.html
       : `<caption>Please select a template</caption>`;
 
-    return partialEl;
+    return this.partialWrapperEl;
   }
 
   renderSettings() {
