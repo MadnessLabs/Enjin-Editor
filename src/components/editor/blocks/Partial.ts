@@ -74,21 +74,18 @@ export default class Partial {
             ${partials.map(
               (
                 partial
-              ) => `<ion-item onClick="document.dispatchEvent(new CustomEvent('enjinEditorClick', {detail: {event,
-                template: {
-                  id: '${partial.id}',
-                  name: '${partial.name}',
-                  html: '${partial.html}'
+              ) => `<ion-item onClick='event.preventDetault();document.dispatchEvent(new CustomEvent(\`enjinEditorClick\`, {
+                detail: {
+                  event,
+                  template: {
+                    id: \`${partial.id}\`,
+                    name: \`${partial.name ? partial.name : partial.subject}\`,
+                    html: \`${partial.html}\`
+                  }
                 }
-              }}), {
-              template: {
-                id: '${partial.id}',
-                name: '${partial.name}',
-                html: '${partial.html}'
-              }
-            });" detail href="javascript:void(0);">
+              }));' detail href='#'>
               <ion-label>
-                <h2>${partial.name}</h2>
+                <h2>${partial.name ? partial.name : partial.subject}</h2>
                 <div>${partial.html}</div>
               </ion-label>
             </ion-item>`
