@@ -74,7 +74,7 @@ export default class Partial {
             ${partials.map(
               (
                 partial
-              ) => `<ion-item onClick='event.preventDetault();document.dispatchEvent(new CustomEvent(\`enjinEditorClick\`, {
+              ) => `<ion-item onClick='event.preventDefault();document.dispatchEvent(new CustomEvent(\`enjinEditorClick\`, {
                 detail: {
                   event,
                   template: {
