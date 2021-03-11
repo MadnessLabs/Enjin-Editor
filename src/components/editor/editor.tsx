@@ -99,7 +99,7 @@ export class EnjinEditor implements ComponentInterface {
         }</ion-button>`;
       },
       partial: (data) => {
-        return `<div class="editor-partial">{{< ${data.templateId}}}</div>`;
+        return `<div class="editor-partial">{{> ${data.templateId}}}</div>`;
       },
     }).parse(await this.editorJS.save());
   }
