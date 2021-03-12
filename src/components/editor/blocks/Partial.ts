@@ -93,10 +93,11 @@ export default class Partial {
     </ion-header>
     <ion-content class="ion-padding">
       <ion-list>
-          ${partials.map(
-            (
-              partial
-            ) => `<ion-item onClick='event.preventDefault();document.dispatchEvent(new CustomEvent(\`enjinEditorClick\`, {
+          ${partials
+            .map(
+              (
+                partial
+              ) => `<ion-item onClick='event.preventDefault();document.dispatchEvent(new CustomEvent("enjinEditorClick", {
               detail: {
                 event: event,
                 template: {
@@ -106,13 +107,14 @@ export default class Partial {
                 },
                 blockId: \`${blockId}\` 
               }
-            }));' detail href='#'>
+            }));' detail="true" href="#">
             <ion-label>
               <h2>${partial.name ? partial.name : partial.subject}</h2>
               <div style="pointer-events: none;">${partial.html}</div>
             </ion-label>
           </ion-item>`
-          )}
+            )
+            .join("")}
       </ion-list>
     </ion-content>`;
         }
