@@ -29,8 +29,6 @@ export default class Partial {
   constructor({ api, data, config }) {
     this.data = data;
     this.api = api;
-    const blockIndex = this.api.blocks.getCurrentBlockIndex();
-    if (blockIndex < 0) return;
     this.blockId = this.makeid(26);
     if (config?.partials && typeof config.partials === "object") {
       this.partials = config.partials;
