@@ -15,7 +15,8 @@ export default class Partial {
   loaded = false;
   partials = [];
   selectedPartial: any;
-  partialWrapperEl: any;
+  partialWrapperEl: HTMLElement;
+  blockId: string;
 
   static get toolbox() {
     return {
@@ -28,6 +29,9 @@ export default class Partial {
   constructor({ api, data, config }) {
     this.data = data;
     this.api = api;
+    const blockIndex = this.api.blocks.getCurrentBlockIndex();
+    if (blockIndex < 0) return;
+    this.blockId = this.makeid(26);
     if (config?.partials && typeof config.partials === "object") {
       this.partials = config.partials;
     } else if (config?.partials && typeof config.partials === "function") {
@@ -43,66 +47,82 @@ export default class Partial {
     });
 
     document.addEventListener("enjinEditorClick", (event: any) => {
-      if (!event?.detail?.template || !this.partialWrapperEl) return;
+      const partialWrapperEl = document.querySelector(
+        `.editor-partial#${this.blockId}`
+      );
+      if (
+        !event?.detail?.template ||
+        event?.detail?.blockId !== this.blockId ||
+        !partialWrapperEl
+      )
+        return;
       this.selectedPartial = event.detail.template;
-      this.partialWrapperEl.innerHTML = this.selectedPartial.html;
+      partialWrapperEl.innerHTML = this.selectedPartial.html;
       if (!this.modalEl) return;
       this.modalEl.dismiss();
     });
   }
 
+  makeid(length) {
+    var result = "";
+    var characters = "abcdefghijklmnopqrstuvwxyz";
+    var charactersLength = characters.length;
+    for (var i = 0; i < length; i++) {
+      result += characters.charAt(Math.floor(Math.random() * charactersLength));
+    }
+    return result;
+  }
+
   createModal() {
     const partials = this.partials;
-    try {
-      customElements.define(
-        "template-select-modal",
-        class extends HTMLElement {
-          connectedCallback() {
-            this.innerHTML = `
-      <ion-header>
-        <ion-toolbar>
-          <ion-title>Select a Template</ion-title>
-          <ion-buttons slot="primary">
-            <ion-button onClick="document.dispatchEvent(new CustomEvent('enjinModalClose', {detail: {event}}));">
-              <ion-icon slot="icon-only" name="close"></ion-icon>
-            </ion-button>
-          </ion-buttons>
-        </ion-toolbar>
-      </ion-header>
-      <ion-content class="ion-padding">
-        <ion-list>
-            ${partials.map(
-              (
-                partial
-              ) => `<ion-item onClick='event.preventDefault();document.dispatchEvent(new CustomEvent(\`enjinEditorClick\`, {
-                detail: {
-                  event,
-                  template: {
-                    id: \`${partial.id}\`,
-                    name: \`${partial.name ? partial.name : partial.subject}\`,
-                    html: \`${partial.html}\`
-                  }
-                }
-              }));' detail href='#'>
-              <ion-label>
-                <h2>${partial.name ? partial.name : partial.subject}</h2>
-                <div>${partial.html}</div>
-              </ion-label>
-            </ion-item>`
-            )}
-        </ion-list>
-      </ion-content>`;
-          }
+    const blockId = this.blockId;
+    customElements.define(
+      `template-select-modal-${blockId}`,
+      class extends HTMLElement {
+        connectedCallback() {
+          this.innerHTML = `
+    <ion-header>
+      <ion-toolbar>
+        <ion-title>Select a Template</ion-title>
+        <ion-buttons slot="primary">
+          <ion-button onClick="document.dispatchEvent(new CustomEvent('enjinModalClose', {detail: {event}}));">
+            <ion-icon slot="icon-only" name="close"></ion-icon>
+          </ion-button>
+        </ion-buttons>
+      </ion-toolbar>
+    </ion-header>
+    <ion-content class="ion-padding">
+      <ion-list>
+          ${partials.map(
+            (
+              partial
+            ) => `<ion-item onClick='event.preventDefault();document.dispatchEvent(new CustomEvent(\`enjinEditorClick\`, {
+              detail: {
+                event: event,
+                template: {
+                  id: \`${partial.id}\`,
+                  name: \`${partial.name ? partial.name : partial.subject}\`,
+                  html: \`${partial.html}\`
+                },
+                blockId: \`${blockId}\` 
+              }
+            }));' detail href='#'>
+            <ion-label>
+              <h2>${partial.name ? partial.name : partial.subject}</h2>
+              <div style="pointer-events: none;">${partial.html}</div>
+            </ion-label>
+          </ion-item>`
+          )}
+      </ion-list>
+    </ion-content>`;
         }
-      );
-    } catch (e) {
-      console.log("Template already registered.");
-    }
+      }
+    );
   }
 
   presentModal() {
     this.modalEl = document.createElement("ion-modal");
-    this.modalEl.component = "template-select-modal";
+    this.modalEl.component = `template-select-modal-${this.blockId}`;
     this.modalEl.cssClass = "my-custom-class";
     this.modalEl.componentProps = {
       partials: this.data?.partials ? this.data.partials : {},
@@ -123,6 +143,7 @@ export default class Partial {
     }
     this.loaded = true;
     this.partialWrapperEl = document.createElement("div");
+    this.partialWrapperEl.id = this.blockId;
     this.partialWrapperEl.classList.add("editor-partial");
     this.partialWrapperEl.innerHTML = this.selectedPartial?.html
       ? this.selectedPartial.html
