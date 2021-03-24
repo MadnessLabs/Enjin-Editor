@@ -84,17 +84,17 @@ export class EnjinEditor implements ComponentInterface {
   async exportHTML(): Promise<string> {
     return new edjsParser(null, {
       button: (data) => {
-        const style =
+        const classes =
           data.align === "center"
-            ? "display: table; margin: 10px auto;"
+            ? "ion-float-center"
             : data.align === "right"
-            ? "display: table; margin: 10px 20px 10px auto;"
+            ? "ion-float-right"
             : "";
         return `<ion-button shape="${
           data.shape ? data.shape : "square"
         }" color="${
           data.color ? data.color : "primary"
-        }" style="${style}" href="${data.href ? data.href : "#"}">${
+        }" class="${classes}" href="${data.href ? data.href : "#"}">${
           data.text
         }</ion-button>`;
       },
