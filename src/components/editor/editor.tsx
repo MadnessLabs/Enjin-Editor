@@ -86,10 +86,10 @@ export class EnjinEditor implements ComponentInterface {
       button: (data) => {
         const classes =
           data.align === "center"
-            ? "ion-float-center"
+            ? "enjin-align-center"
             : data.align === "right"
-            ? "ion-float-right"
-            : "";
+            ? "enjin-align-right"
+            : "enjin-align-left";
         return `<ion-button shape="${
           data.shape ? data.shape : "square"
         }" color="${
