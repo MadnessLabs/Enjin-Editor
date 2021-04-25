@@ -25,6 +25,7 @@ import Button from "./blocks/Button";
 import Page from "./blocks/Page";
 import Raw from "@editorjs/raw";
 import Partial from "./blocks/Partial";
+import Tasklist from "./blocks/Tasklist";
 
 @Component({
   tag: "enjin-editor",
@@ -195,6 +196,10 @@ export class EnjinEditor implements ComponentInterface {
           },
           list: {
             class: List,
+            inlineToolbar: true,
+          },
+          tasklist: {
+            class: Tasklist,
             inlineToolbar: true,
           },
           table: {
