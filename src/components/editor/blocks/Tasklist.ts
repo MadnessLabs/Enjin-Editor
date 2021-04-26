@@ -12,6 +12,8 @@ export default class Tasklist {
   readOnly: boolean;
   api: any;
   data: any;
+  progress = 0;
+  progressBarEl: any;
   color: Color = "success";
   colorOptions = [
     "primary",
@@ -31,16 +33,16 @@ export default class Tasklist {
       value: "success",
       onClick: () => {
         try {
+          this.color = this.nextArrayItem(this.colorOptions, this.color);
           this.api.blocks
             .getBlockByIndex(this.api.blocks.getCurrentBlockIndex())
             .holder.querySelectorAll("ion-checkbox")
             .forEach((checkboxEl) => {
-              const currentColor = checkboxEl.color
-                ? checkboxEl.color
-                : "success";
-              this.color = this.nextArrayItem(this.colorOptions, currentColor);
               checkboxEl.color = this.color;
             });
+          this.api.blocks
+            .getBlockByIndex(this.api.blocks.getCurrentBlockIndex())
+            .holder.querySelector("ion-progress-bar").color = this.color;
         } catch (err) {
           console.log("Error setting button alignment!");
         }
@@ -161,22 +163,23 @@ export default class Tasklist {
    * @returns {Element}
    */
   render() {
-    this.elements.wrapper = make("ion-list", [
-      this.CSS.baseBlock,
-      this.CSS.wrapper,
-    ]);
+    this.elements.wrapper = make(
+      "ion-list",
+      [this.CSS.baseBlock, this.CSS.wrapper],
+      {
+        style: "padding-bottom: 0px;",
+      }
+    );
 
     /**
      * If there is no data, create first empty item
      */
     if (!this.data.items) {
-      setTimeout(
-        () =>
-          this.elements.wrapper
-            .querySelector("ion-item:first-of-type > ion-label")
-            .focus(),
-        200
-      );
+      setTimeout(() => {
+        this.elements.wrapper
+          .querySelector("ion-item:first-of-type > ion-label")
+          .focus();
+      }, 200);
       this.data.items = [
         {
           text: "",
@@ -185,11 +188,25 @@ export default class Tasklist {
       ];
     }
 
+    setTimeout(() => {
+      this.progressBarEl = this.api.blocks
+        .getBlockByIndex(this.api.blocks.getCurrentBlockIndex())
+        .holder.querySelector("ion-progress-bar");
+      this.setProgress();
+    }, 200);
+
     this.data.items.forEach((item) => {
       const newItem = this.createTasklistItem(item);
 
       this.elements.wrapper.appendChild(newItem);
     });
+
+    this.elements.wrapper.appendChild(
+      make("ion-progress-bar", null, {
+        color: this.color,
+        value: this.progress,
+      })
+    );
 
     /**
      * If read-only mode is on, do not bind events
@@ -220,9 +237,23 @@ export default class Tasklist {
 
     this.elements.wrapper.addEventListener("ionChange", (event) => {
       this.toggleCheckbox(event);
+      this.setProgress();
     });
 
     return this.elements.wrapper;
+  }
+
+  setProgress() {
+    let completed = 0;
+    for (const item of this.items) {
+      console.log(item);
+      completed =
+        completed + (item?.querySelector("ion-checkbox")?.checked ? 1 : 0);
+    }
+    const progressMath = completed / this.items.length;
+    this.progress =
+      isFinite(progressMath) && progressMath > 0 ? progressMath : 0;
+    this.progressBarEl.value = this.progress;
   }
 
   renderSettings() {
@@ -257,7 +288,6 @@ export default class Tasklist {
       return {
         text: getHTML(input),
         checked: itemEl.classList.contains(this.CSS.itemChecked),
-        color: this.color ? this.color : "success",
       };
     });
 
@@ -268,6 +298,8 @@ export default class Tasklist {
 
     return {
       items,
+      color: this.color,
+      progress: this.progress,
     };
   }
 
@@ -364,6 +396,10 @@ export default class Tasklist {
 
         currentItem.remove();
 
+        setTimeout(() => {
+          this.setProgress();
+        }, 200);
+
         this.api.blocks.insert();
         this.api.caret.setToBlock(currentBlockIndex + 1);
 
@@ -396,6 +432,8 @@ export default class Tasklist {
     moveCaret(this.getItemInput(newItem), true);
 
     setTimeout(() => this.getItemInput(newItem).focus(), 100);
+
+    this.setProgress();
   }
 
   /**
@@ -434,6 +472,7 @@ export default class Tasklist {
     moveCaret(prevItemInput, undefined, prevItemChildNodesLength);
 
     currentItem.remove();
+    this.setProgress();
   }
 
   /**

@@ -80,9 +80,6 @@ export function moveCaret(element, toStart = false, offset = undefined) {
   const range = document.createRange();
   const selection = window.getSelection();
 
-  console.dir(element);
-  console.log(range, selection);
-
   range.selectNodeContents(element);
 
   if (offset !== undefined) {
