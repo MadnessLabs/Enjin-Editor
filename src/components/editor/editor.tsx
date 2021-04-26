@@ -102,6 +102,23 @@ export class EnjinEditor implements ComponentInterface {
       partial: (data) => {
         return `<div class="editor-partial">{{> ${data.templateId}}}</div>`;
       },
+      tasklist: (data) => {
+        const color = data?.color ? data.color : "success";
+        const progress = data?.progress ? data.progress : 0;
+        const html = ["<ion-list>"];
+        for (const item of data?.items ? data.items : []) {
+          html.push(
+            `<ion-item><ion-checkbox slot="start" color="${color}" ${
+              item.checked ? `checked="true"` : ""
+            }></ion-checkbox><ion-label>${item.text}</ion-label></ion-item>`
+          );
+        }
+        html.push(
+          `<ion-progress-bar color="${color}" value="${progress}"></ion-progress-bar>`,
+          "</ion-list>"
+        );
+        return html.join("");
+      },
     }).parse(await this.editorJS.save());
   }
 
