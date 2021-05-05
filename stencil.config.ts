@@ -1,6 +1,6 @@
 import { Config } from "@stencil/core";
 
-const { namespace, distDirs } = require("./package.json");
+import { namespace } from "./package.json";
 
 export const config: Config = {
   namespace,
@@ -21,7 +21,6 @@ export const config: Config = {
     // creates /dist dir
     {
       type: "dist",
-      dir: distDirs.stencil,
       copy: [
         // copy fonts into static for storybook and stencil build
         { src: "fonts" },
@@ -30,7 +29,6 @@ export const config: Config = {
     // one file in es6
     {
       type: "dist-custom-elements-bundle",
-      dir: distDirs.stencil,
     },
     // creates readme.md for components
     {
@@ -39,7 +37,7 @@ export const config: Config = {
     // create components(.d.ts|json) into dist
     {
       type: "docs-json",
-      file: `${distDirs.stencil}/components.json`,
+      file: `dist/components.json`,
     },
     {
       type: "docs-json",
