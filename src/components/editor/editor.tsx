@@ -23,13 +23,14 @@ import Table from "@editorjs/table";
 import { MDParser, MDImporter } from "editorjsMdParser";
 import Button from "./blocks/Button";
 import Page from "./blocks/Page";
-import Raw from "@editorjs/raw";
 import Partial from "./blocks/Partial";
 import Tasklist from "./blocks/Tasklist";
+import Code from "./blocks/Code";
 
 @Component({
   tag: "enjin-editor",
   styleUrl: "editor.css",
+  assetsDirs: ["prism-live"],
 })
 export class EnjinEditor implements ComponentInterface {
   editorJS: EditorJS;
@@ -119,10 +120,11 @@ export class EnjinEditor implements ComponentInterface {
         );
         return html.join("");
       },
+      code: (data) => data.html,
     }).parse(await this.editorJS.save());
   }
 
-  componentDidLoad() {
+  async componentDidLoad() {
     this.editorJS = new EditorJS({
       onChange: () => {
         this.enjinChange.emit({ instance: this.editorJS });
@@ -223,7 +225,7 @@ export class EnjinEditor implements ComponentInterface {
             class: Table,
           },
           page: Page,
-          raw: Raw,
+          code: Code,
           partial: {
             class: Partial,
             config: {
