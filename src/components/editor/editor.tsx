@@ -20,7 +20,7 @@ import Paragraph from "editorjs-paragraph-with-alignment";
 import EditorJSStyle from "editorjs-style";
 import edjsParser from "editorjs-parser";
 import Table from "@editorjs/table";
-import { MDParser, MDImporter } from "editorjsMdParser";
+import { MDParser, MDImporter } from "./blocks/Markdown";
 import Button from "./blocks/Button";
 import Page from "./blocks/Page";
 import Partial from "./blocks/Partial";
