@@ -25,6 +25,10 @@ enjin-editor .ce-block--selected .ce-block__content {
   background: var(--ion-color-base-tint);
 }
 
+enjin-editor .ce-toolbar {
+  z-index: 9;
+}
+
 enjin-editor .ce-toolbox {
   background-color: var(--ion-background-color);
 }
@@ -111,11 +115,12 @@ enjin-editor .ce-rawtool__textarea {
 
 code[class*="language-"],
 pre[class*="language-"] {
-  color: black;
+  color: var(--editor-color, var(--ion-color-dark, black));
   background: none;
-  text-shadow: 0 1px white;
-  font-family: Consolas, Monaco, "Andale Mono", "Ubuntu Mono", monospace;
-  font-size: 1em;
+  text-shadow: 0 1px
+    var(--editor-color-shadow, var(--ion-color-light-tint, white));
+  font-family: Menlo, Monaco, Consolas, Courier New, monospace;
+  font-size: 12px !important;
   text-align: left;
   white-space: pre;
   word-spacing: normal;
@@ -123,9 +128,9 @@ pre[class*="language-"] {
   word-wrap: normal;
   line-height: 1.5;
 
-  -moz-tab-size: 4;
-  -o-tab-size: 4;
-  tab-size: 4;
+  -moz-tab-size: 2;
+  -o-tab-size: 2;
+  tab-size: 2;
 
   -webkit-hyphens: none;
   -moz-hyphens: none;
@@ -165,7 +170,7 @@ pre[class*="language-"] {
 
 :not(pre) > code[class*="language-"],
 pre[class*="language-"] {
-  background: #f5f2f0;
+  background: var(--editor-background, var(--ion-color-light, #f5f2f0));
 }
 
 /* Inline code */
@@ -179,11 +184,14 @@ pre[class*="language-"] {
 .token.prolog,
 .token.doctype,
 .token.cdata {
-  color: slategray;
+  color: var(
+    --editor-color-punctuation,
+    var(--ion-color-medium-tint, slategray)
+  );
 }
 
 .token.punctuation {
-  color: #999;
+  color: var(--editor-color-punctuation, var(--ion-color-light-shade, #999));
 }
 
 .token.namespace {
@@ -197,7 +205,7 @@ pre[class*="language-"] {
 .token.constant,
 .token.symbol,
 .token.deleted {
-  color: #905;
+  color: var(--editor-color-property, var(--ion-color-tertiary-shade, #905));
 }
 
 .token.selector,
@@ -206,7 +214,7 @@ pre[class*="language-"] {
 .token.char,
 .token.builtin,
 .token.inserted {
-  color: #690;
+  color: var(--editor-color-selector, var(--ion-color-success, #690));
 }
 
 .token.operator,
@@ -214,7 +222,7 @@ pre[class*="language-"] {
 .token.url,
 .language-css .token.string,
 .style .token.string {
-  color: #9a6e3a;
+  color: var(--editor-color-operator, var(--ion-color-warning-shade, #9a6e3a));
   /* This background color was intended by the author of this theme. */
   background: hsla(0, 0%, 100%, 0.5);
 }
@@ -222,18 +230,18 @@ pre[class*="language-"] {
 .token.atrule,
 .token.attr-value,
 .token.keyword {
-  color: #07a;
+  color: var(--editor-color-keyword, var(--ion-color-secondary-shade, #07a));
 }
 
 .token.function,
 .token.class-name {
-  color: #dd4a68;
+  color: var(--editor-color-function, var(--ion-color-danger-shade, #dd4a68));
 }
 
 .token.regex,
 .token.important,
 .token.variable {
-  color: #e90;
+  color: var(--editor-color-operator, var(--ion-color-warning, #e90));
 }
 
 .token.important,
@@ -263,6 +271,7 @@ pre.prism-live {
 }
 
 textarea.prism-live {
+  font-size: 12px !important;
   position: absolute;
   top: 0;
   right: 0;
@@ -277,8 +286,11 @@ textarea.prism-live {
   outline: none;
   background: transparent;
   resize: none;
-  --selection-background: hsl(320, 80%, 25%);
-  --selection-color: hsla(0, 0%, 100%, 0.8);
+  --selection-background: var(
+    --editor-selection-background,
+    hsl(320, 80%, 25%)
+  );
+  --selection-color: var(--editor-selction-color, hsla(0, 0%, 100%, 0.8));
 }
 
 @supports (not (caret-color: black)) and (-webkit-text-fill-color: black) {

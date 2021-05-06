@@ -9,6 +9,7 @@ export default class Code {
   data: any;
   textarea: any;
   resizeDebounce: any;
+  block;
 
   /**
    * Notify core that read-only mode is supported
@@ -68,9 +69,10 @@ export default class Code {
    * @param {object} api - CodeX Editor API
    * @param {boolean} readOnly - read-only mode flag
    */
-  constructor({ data, config, api, readOnly }) {
+  constructor({ data, config, api, readOnly, block }) {
     this.api = api;
     this.readOnly = readOnly;
+    this.block = block;
 
     this.placeholder = config.placeholder ? config.placeholder : "";
 
@@ -139,9 +141,9 @@ export default class Code {
     }
 
     wrapper.appendChild(this.textarea);
-
     setTimeout(() => {
       this.resize();
+      this.block.stretched = true;
     }, renderingTime);
 
     return wrapper;
