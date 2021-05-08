@@ -1,13 +1,10 @@
-import { Build } from "@stencil/core";
-import Prism from "prismjs";
-
 export default class Code {
   api: any;
   readOnly: boolean;
   placeholder: string;
   CSS: any;
   data: any;
-  textarea: any;
+  aceWidgetEl: any;
   resizeDebounce: any;
   block;
 
@@ -87,14 +84,8 @@ export default class Code {
       html: data.html || "",
     };
 
-    this.textarea = null;
+    this.aceWidgetEl = null;
     this.resizeDebounce = null;
-    Prism.highlight("<p>test</p>", Prism.languages.javascript, "markup");
-    if (Build.isBrowser) {
-      this.injectScript(
-        "/build/prism-live/prism-live.js?load=html,css,javascript"
-      );
-    }
   }
 
   injectScript(src) {
@@ -119,31 +110,30 @@ export default class Code {
     const wrapper = document.createElement("div");
     const renderingTime = 100;
 
-    this.textarea = document.createElement("textarea");
-
+    this.aceWidgetEl = document.createElement("ace-widget");
+    this.aceWidgetEl.baseUrl = "/build/ace-builds/";
+    this.aceWidgetEl.mode = "ace/mode/html";
     wrapper.classList.add(this.CSS.baseClass, this.CSS.wrapper);
 
-    this.textarea.classList.add(
-      this.CSS.textarea,
-      this.CSS.input,
-      "prism-live",
-      "language-html"
-    );
-    this.textarea.textContent = this.data.html;
-    this.textarea.placeholder = this.placeholder;
+    this.aceWidgetEl.classList.add(this.CSS.textarea, this.CSS.input);
+    this.aceWidgetEl.textContent = this.data.html;
+    this.aceWidgetEl.enableLiveAutocompletion = true;
+    this.aceWidgetEl.enableSnippets = true;
+    this.aceWidgetEl.placeholder = this.placeholder;
 
     if (this.readOnly) {
-      this.textarea.disabled = true;
+      this.aceWidgetEl.disabled = true;
     } else {
-      this.textarea.addEventListener("input", () => {
+      this.aceWidgetEl.addEventListener("input", () => {
         this.onInput();
       });
     }
 
-    wrapper.appendChild(this.textarea);
+    wrapper.appendChild(this.aceWidgetEl);
     setTimeout(() => {
       this.resize();
       this.block.stretched = true;
+      //this.aceWidgetEl.editor.setOption("enableEmmet", true);
     }, renderingTime);
 
     return wrapper;
@@ -156,9 +146,11 @@ export default class Code {
    * @returns {RawData} - raw HTML code
    * @public
    */
-  save(rawToolsWrapper) {
+  save(_rawToolsWrapper) {
     return {
-      html: rawToolsWrapper.querySelector("textarea").value,
+      html: this.aceWidgetEl?.editor?.getValue
+        ? this.aceWidgetEl.editor.getValue()
+        : "",
     };
   }
 
@@ -187,6 +179,7 @@ export default class Code {
    * @returns {void}
    */
   onInput() {
+    console.log("w00");
     if (this.resizeDebounce) {
       clearTimeout(this.resizeDebounce);
     }
@@ -202,7 +195,8 @@ export default class Code {
    * @returns {void}
    */
   resize() {
-    this.textarea.style.height = "auto";
-    this.textarea.style.height = this.textarea.scrollHeight + "px";
+    console.log("weee");
+    // this.aceWidgetEl.style.height = "auto";
+    // this.aceWidgetEl.style.height = this.aceWidgetEl.scrollHeight + "px";
   }
 }

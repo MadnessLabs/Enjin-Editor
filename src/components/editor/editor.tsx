@@ -9,6 +9,7 @@ import {
   Method,
   Host,
 } from "@stencil/core";
+import "@granite-elements/ace-widget/ace-widget";
 import firebase from "firebase/app";
 import "firebase/storage";
 import EditorJS from "@editorjs/editorjs";
@@ -30,7 +31,7 @@ import Code from "./blocks/Code";
 @Component({
   tag: "enjin-editor",
   styleUrl: "editor.css",
-  assetsDirs: ["prism-live"],
+  assetsDirs: ["ace-builds"],
 })
 export class EnjinEditor implements ComponentInterface {
   editorJS: EditorJS;
