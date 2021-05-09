@@ -116,7 +116,7 @@ export default class Code {
     wrapper.classList.add(this.CSS.baseClass, this.CSS.wrapper);
 
     this.aceWidgetEl.classList.add(this.CSS.textarea, this.CSS.input);
-    this.aceWidgetEl.textContent = this.data.html;
+    this.aceWidgetEl.value = this.data.html;
     this.aceWidgetEl.enableLiveAutocompletion = true;
     this.aceWidgetEl.enableSnippets = true;
     this.aceWidgetEl.placeholder = this.placeholder;
@@ -179,7 +179,6 @@ export default class Code {
    * @returns {void}
    */
   onInput() {
-    console.log("w00");
     if (this.resizeDebounce) {
       clearTimeout(this.resizeDebounce);
     }
@@ -195,7 +194,6 @@ export default class Code {
    * @returns {void}
    */
   resize() {
-    console.log("weee");
     // this.aceWidgetEl.style.height = "auto";
     // this.aceWidgetEl.style.height = this.aceWidgetEl.scrollHeight + "px";
   }
