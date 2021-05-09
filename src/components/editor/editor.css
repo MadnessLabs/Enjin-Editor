@@ -101,6 +101,30 @@ enjin-editor .ce-rawtool__textarea {
   color: #a1a7b6;
   overscroll-behavior: contain;
 }
+enjin-editor .ce-block--drop-target .ce-block__content {
+  outline-color: #a0a0a0;
+  outline-style: dashed;
+  outline-width: 1px;
+}
+enjin-editor .ce-block--drop-target .ce-block__content:before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: -20px;
+  margin-top: -1px;
+  height: 8px;
+  width: 8px;
+  border: solid #a0a0a0;
+  border-width: 1px 1px 0 0;
+  -webkit-transform-origin: right;
+  transform-origin: right;
+  -webkit-transform: rotate(45deg);
+  transform: rotate(45deg);
+}
+enjin-editor .ce-block--drop-target .ce-block__content:after {
+  background: none;
+}
+
 @media (min-width: 651px) {
   enjin-editor .codex-editor--narrow .ce-toolbar__plus {
     left: -60px;
