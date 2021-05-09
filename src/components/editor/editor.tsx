@@ -8,6 +8,7 @@ import {
   Prop,
   Method,
   Host,
+  State,
 } from "@stencil/core";
 import "@granite-elements/ace-widget/ace-widget";
 import firebase from "firebase/app";
@@ -34,8 +35,6 @@ import Code from "./blocks/Code";
   assetsDirs: ["ace-builds"],
 })
 export class EnjinEditor implements ComponentInterface {
-  editorJS: EditorJS;
-
   @Element() editorEl: HTMLEnjinEditorElement;
 
   /**
@@ -67,6 +66,8 @@ export class EnjinEditor implements ComponentInterface {
    */
   @Prop() autofocus = true;
 
+  @State() editorJS: EditorJS;
+
   /**
    * An event emitted on each change in the editor
    */
@@ -85,6 +86,7 @@ export class EnjinEditor implements ComponentInterface {
    */
   @Method()
   async exportHTML(): Promise<string> {
+    if (!this.editorJS?.save) return;
     return new edjsParser(null, {
       button: (data) => {
         const classes =
