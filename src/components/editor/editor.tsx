@@ -22,6 +22,7 @@ import Paragraph from "editorjs-paragraph-with-alignment";
 import EditorJSStyle from "editorjs-style";
 import edjsParser from "editorjs-parser";
 import Table from "@editorjs/table";
+import Undo from "./blocks/Undo";
 import DragDrop from "./blocks/DragDrop";
 import { MDParser, MDImporter } from "./blocks/Markdown";
 import Button from "./blocks/Button";
@@ -134,11 +135,8 @@ export class EnjinEditor implements ComponentInterface {
         this.enjinChange.emit({ instance: this.editorJS });
       },
       onReady: () => {
-        console.log(this.editorJS);
-        setTimeout(() => {
-          console.log((this.editorJS as any).configuration.holder);
-          new DragDrop(this.editorJS as any);
-        }, 200);
+        new DragDrop(this.editorJS as any);
+        new Undo({ editor: this.editorJS });
       },
       placeholder: this.placeholder,
       holder: this.editorEl,

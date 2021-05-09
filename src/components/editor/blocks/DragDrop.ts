@@ -24,7 +24,7 @@ export default class DragDrop {
   constructor({ configuration, blocks }) {
     this.api = blocks;
     this.holder = configuration.holder;
-    this.readOnly = configuration.readOnly;
+    this.readOnly = !!configuration.readOnly;
     this.startBlock = null;
     this.endBlock = null;
 
