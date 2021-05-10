@@ -122,8 +122,8 @@ export default class Code {
     this.CSS = {
       baseClass: this.api.styles.block,
       input: this.api.styles.input,
-      wrapper: "ce-rawtool",
-      textarea: "ce-rawtool__textarea",
+      wrapper: "ce-code-tool",
+      textarea: "ce-code-tool__textarea",
     };
 
     this.data = {
@@ -154,9 +154,6 @@ export default class Code {
    */
   render() {
     const wrapper = document.createElement("div");
-    if (this.data?.preview) {
-      wrapper.classList.add("show-preview");
-    }
     const renderingTime = 100;
 
     this.aceWidgetEl = document.createElement("ace-widget");
@@ -189,6 +186,10 @@ export default class Code {
     wrapper.appendChild(this.previewEl);
     setTimeout(() => {
       this.block.stretched = true;
+      if (this.data?.preview) {
+        const holder: HTMLElement = this.block.holder;
+        holder.classList.add("show-preview");
+      }
       //this.aceWidgetEl.editor.setOption("enableEmmet", true);
     }, renderingTime);
 
