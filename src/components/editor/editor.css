@@ -124,6 +124,18 @@ enjin-editor .ce-block--drop-target .ce-block__content:before {
 enjin-editor .ce-block--drop-target .ce-block__content:after {
   background: none;
 }
+enjin-editor ace-widget {
+  display: block;
+}
+enjin-editor .show-preview ace-widget {
+  display: none;
+}
+enjin-editor .html-preview {
+  display: none;
+}
+enjin-editor .show-preview .html-preview {
+  display: block;
+}
 
 @media (min-width: 651px) {
   enjin-editor .codex-editor--narrow .ce-toolbar__plus {
