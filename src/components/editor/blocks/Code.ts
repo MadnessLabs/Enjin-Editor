@@ -41,7 +41,9 @@ export default class Code {
     for (const setting of this.settings) {
       let button = document.createElement("div");
       button.classList.add("cdx-settings-button");
-      button.innerHTML = setting.innerHTML;
+      button.innerHTML = this.data?.preview
+        ? this.icons["eye-off"]
+        : this.icons.eye;
       if (typeof setting?.onClick === "function") {
         button.addEventListener("click", setting.onClick);
       }
@@ -152,6 +154,9 @@ export default class Code {
    */
   render() {
     const wrapper = document.createElement("div");
+    if (this.data?.preview) {
+      wrapper.classList.add("show-preview");
+    }
     const renderingTime = 100;
 
     this.aceWidgetEl = document.createElement("ace-widget");
