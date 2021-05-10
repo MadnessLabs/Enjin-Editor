@@ -160,7 +160,7 @@ export default class Code {
     wrapper.classList.add(this.CSS.baseClass, this.CSS.wrapper);
 
     this.aceWidgetEl.classList.add(this.CSS.textarea, this.CSS.input);
-    this.aceWidgetEl.value = this.data.html;
+    this.aceWidgetEl.value = this.data?.html ? this.data.html : "";
     this.aceWidgetEl.enableLiveAutocompletion = true;
     this.aceWidgetEl.enableSnippets = true;
     this.aceWidgetEl.placeholder = this.placeholder;
@@ -179,6 +179,7 @@ export default class Code {
 
     this.previewEl = document.createElement("div");
     this.previewEl.classList.add("html-preview");
+    this.previewEl.innerHTML = this.data?.html ? this.data.html : "";
 
     wrapper.appendChild(this.previewEl);
     setTimeout(() => {
