@@ -1,4 +1,4 @@
-import remark from "remark";
+import { remark } from "remark";
 import { parseMarkdownToHeader } from "./BlockTypeParsers/HeaderTypeParser";
 import { parseMarkdownToParagraph } from "./BlockTypeParsers/ParagraphTypeParser";
 import { parseMarkdownToList } from "./BlockTypeParsers/ListTypeParser";
@@ -71,7 +71,7 @@ export default class MarkdownImporter {
       reader.onload = (readerEvent) => {
         const content = readerEvent.target.result;
 
-        const parsedMarkdown: any = remark().parse(content);
+        const parsedMarkdown: any = remark().parse(content as any);
         // iterating over the pared remarkjs syntax tree and executing the json parsers
         parsedMarkdown.children.forEach((item, _index) => {
           switch (item.type) {
@@ -98,7 +98,7 @@ export default class MarkdownImporter {
           blocks: editorData.filter((value) => Object.keys(value).length !== 0), // filter through array and remove empty objects
         });
 
-        return remark().parse(content);
+        return remark().parse(content as any);
       };
     };
 
