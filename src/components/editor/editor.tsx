@@ -30,6 +30,7 @@ import Page from "./blocks/Page";
 import Partial from "./blocks/Partial";
 import Tasklist from "./blocks/Tasklist";
 import Code from "./blocks/Code";
+import Input from "./blocks/Input";
 
 @Component({
   tag: "enjin-editor",
@@ -229,6 +230,9 @@ export class EnjinEditor implements ComponentInterface {
           tasklist: {
             class: Tasklist,
             inlineToolbar: true,
+          },
+          input: {
+            class: Input,
           },
           table: {
             class: Table,
