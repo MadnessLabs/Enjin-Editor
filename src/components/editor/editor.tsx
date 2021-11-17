@@ -66,6 +66,10 @@ export class EnjinEditor implements ComponentInterface {
    *  Should the editor focus on load
    */
   @Prop() autofocus = true;
+  /**
+   * The callback to be run when a file is uploaded
+   */
+  @Prop() uploadCallback: (event) => Promise<{ success: boolean; file: { url: string } }>
 
   @State() editorJS: EditorJS;
 
@@ -73,10 +77,6 @@ export class EnjinEditor implements ComponentInterface {
    * An event emitted on each change in the editor
    */
   @Event() enjinChange: EventEmitter;
-  /**
-   * An event emitted when upload is initiated
-   */
-  @Event() enjinUpload: EventEmitter;
 
   /**
    * Get the Editor.js instance
@@ -159,21 +159,10 @@ export class EnjinEditor implements ComponentInterface {
             config: {
               uploader: {
                 uploadByFile: async (file) => {
-                  this.enjinUpload.emit({
-                    type: "file",
-                    file
-                  });
+                  return await this.uploadCallback({ type: "file", file });
                 },
-                /**
-                 * Send URL-string to the server. Backend should load image by this URL and return an uploaded image data
-                 * @param {string} url - pasted image URL
-                 * @return {Promise.<{success, file: {url}}>}
-                 */
                 uploadByUrl: async (url) => {
-                  this.enjinUpload.emit({
-                    type: "url",
-                    url
-                  });
+                  return await this.uploadCallback({ type: "url", url });
                 }
               },
             },
