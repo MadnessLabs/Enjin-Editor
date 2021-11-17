@@ -1,9 +1,9 @@
 {
-  "timestamp": "2021-08-09T03:05:59",
+  "timestamp": "2021-11-17T08:36:34",
   "compiler": {
     "name": "@stencil/core",
-    "version": "2.6.0",
-    "typescriptVersion": "4.2.3"
+    "version": "2.10.0",
+    "typescriptVersion": "4.3.5"
   },
   "components": [
     {
@@ -164,6 +164,15 @@
           "cancelable": true,
           "composed": true,
           "docs": "An event emitted on each change in the editor",
+          "docsTags": []
+        },
+        {
+          "event": "enjinUpload",
+          "detail": "any",
+          "bubbles": true,
+          "cancelable": true,
+          "composed": true,
+          "docs": "An event emitted when upload is initiated",
           "docsTags": []
         }
       ],
