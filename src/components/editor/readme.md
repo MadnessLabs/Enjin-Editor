@@ -23,6 +23,7 @@
 | Event         | Description                                   | Type               |
 | ------------- | --------------------------------------------- | ------------------ |
 | `enjinChange` | An event emitted on each change in the editor | `CustomEvent<any>` |
+| `enjinUpload` | An event emitted when upload is initiated     | `CustomEvent<any>` |
 
 
 ## Methods

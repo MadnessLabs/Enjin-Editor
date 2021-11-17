@@ -45,7 +45,6 @@
     "editorjs-paragraph-with-alignment": "^3.0.0",
     "editorjs-parser": "^1.5.3",
     "editorjs-style": "^3.0.2",
-    "firebase": "^9.4.1",
     "remark": "^14.0.1"
   },
   "devDependencies": {
