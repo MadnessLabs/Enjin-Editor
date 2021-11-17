@@ -1,5 +1,5 @@
 {
-  "timestamp": "2021-11-17T08:42:23",
+  "timestamp": "2021-11-17T10:03:47",
   "compiler": {
     "name": "@stencil/core",
     "version": "2.10.0",
@@ -116,6 +116,21 @@
           "required": false
         },
         {
+          "name": "uploadCallback",
+          "type": "(event: any) => Promise<{ success: boolean; file: { url: string; }; }>",
+          "mutable": false,
+          "reflectToAttr": false,
+          "docs": "The callback to be run when a file is uploaded",
+          "docsTags": [],
+          "values": [
+            {
+              "type": "(event: any) => Promise<{ success: boolean; file: { url: string; }; }>"
+            }
+          ],
+          "optional": false,
+          "required": false
+        },
+        {
           "name": "userId",
           "type": "string",
           "mutable": false,
@@ -164,15 +179,6 @@
           "cancelable": true,
           "composed": true,
           "docs": "An event emitted on each change in the editor",
-          "docsTags": []
-        },
-        {
-          "event": "enjinUpload",
-          "detail": "any",
-          "bubbles": true,
-          "cancelable": true,
-          "composed": true,
-          "docs": "An event emitted when upload is initiated",
           "docsTags": []
         }
       ],
