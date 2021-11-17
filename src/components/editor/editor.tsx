@@ -11,8 +11,8 @@ import {
   State,
 } from "@stencil/core";
 import "@granite-elements/ace-widget/ace-widget";
-import firebase from "firebase/app";
-import "firebase/storage";
+import firebase from "firebase/compat/app";
+import "firebase/compat/storage";
 import EditorJS from "@editorjs/editorjs";
 import ImageTool from "@editorjs/image";
 import List from "@editorjs/list";
@@ -96,15 +96,12 @@ export class EnjinEditor implements ComponentInterface {
           data.align === "center"
             ? "enjin-align-center"
             : data.align === "right"
-            ? "enjin-align-right"
-            : "enjin-align-left";
-        return `<ion-button shape="${
-          data.shape ? data.shape : "square"
-        }" color="${
-          data.color ? data.color : "primary"
-        }" class="${classes}" href="${data.href ? data.href : "#"}">${
-          data.text
-        }</ion-button>`;
+              ? "enjin-align-right"
+              : "enjin-align-left";
+        return `<ion-button shape="${data.shape ? data.shape : "square"
+          }" color="${data.color ? data.color : "primary"
+          }" class="${classes}" href="${data.href ? data.href : "#"}">${data.text
+          }</ion-button>`;
       },
       partial: (data) => {
         return `<div class="editor-partial">{{> ${data.templateId}}}</div>`;
@@ -115,8 +112,7 @@ export class EnjinEditor implements ComponentInterface {
         const html = ["<ion-list>"];
         for (const item of data?.items ? data.items : []) {
           html.push(
-            `<ion-item><ion-checkbox slot="start" color="${color}" ${
-              item.checked ? `checked="true"` : ""
+            `<ion-item><ion-checkbox slot="start" color="${color}" ${item.checked ? `checked="true"` : ""
             }></ion-checkbox><ion-label>${item.text}</ion-label></ion-item>`
           );
         }
@@ -165,10 +161,9 @@ export class EnjinEditor implements ComponentInterface {
                     const uploadTask = firebase
                       .storage()
                       .ref(
-                        `${
-                          this.fileStoragePath
-                            ? this.fileStoragePath
-                            : this.userId
+                        `${this.fileStoragePath
+                          ? this.fileStoragePath
+                          : this.userId
                             ? `/users/${this.userId}`
                             : "/enjin-editor"
                         }/${file.name}`
